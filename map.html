@@ -21,7 +21,7 @@
     <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
-    <!--<script>
+    <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyA-pvumSXSLneRyZLXuM0dnZj2Y4EwdG-4",
@@ -32,7 +32,7 @@
             messagingSenderId: "88001220806"
         };
         firebase.initializeApp(config);
-    </script>-->
+    </script>
     <script type="text/javascript" src="js/administracion.js"></script>
 </head>
 
@@ -131,6 +131,14 @@
             </div>
             <div class="footer__Copy">
                 <span>©COPYRIGHT-UPB-MEDELLIN-2018</span>
+                <button id="btnLogout" class="btn btn-action hide">Logout</button>
+                <script type="text/javascript">
+                        $( "#btnLogout" ).click(function() {
+                            alert( "btnLogout" );
+                            firebase.auth().signOut();
+                            location.href ="./login.html";
+                        });
+                </script>
             </div>
             <!--<button id="btnLogout" class="btn btn-action hide">Logout</button>-->
         </div>
