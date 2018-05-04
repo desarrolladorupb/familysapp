@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Info windows</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA-pvumSXSLneRyZLXuM0dnZj2Y4EwdG-4",
+            authDomain: "prueba-6f2d0.firebaseapp.com",
+            databaseURL: "https://prueba-6f2d0.firebaseio.com",
+            projectId: "prueba-6f2d0",
+            storageBucket: "prueba-6f2d0.appspot.com",
+            messagingSenderId: "88001220806"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <style>
+
+      #map {
+        height: 100%;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <select id="mySelect"></select>
+    <script>
+
+
+      function initMap() {
+
+        var starCountRef = firebase.database().ref("Family");
+          starCountRef.on("value",
+            function(snapshot) {
+                $.each(snapshot.val(), function(index, value) {
+                  console.log(index,value);
+                        $('#mySelect').append($('<option>', { 
+                          value: index,
+                          text : index 
+                        }));
+
+
+                });
+            }
+        );
+
+                  var uluru = {lat: 6.238, lng: -75.583};
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: uluru
+                  });
+
+
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            'sandstone rock formation in the southern part of the '+
+            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+            'south west of the nearest large town, Alice Springs; 450&#160;km '+
+            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+            'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+            'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+            'Aboriginal people of the area. It has many springs, waterholes, '+
+            'rock caves and ancient paintings. Uluru is listed as a World '+
+            'Heritage Site.</p>'+
+            '</div>'+
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+          title: 'Uluru (Ayers Rock)'
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByz8mE5Yz3t-0k1WnJnppk1P5eg_SN39U&callback=initMap">
+    </script>
+
+  </body>
+</html>

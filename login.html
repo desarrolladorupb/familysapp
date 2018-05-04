@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+	<script src="js/administracion.js"></script>
+	<script src="js/keyfirebase.js"></script>
+	<script src="js/login.js"></script>
+	<link rel="shortcut icon" href="img/icon.ico" />
+</head>
+<body>
+	<div class="container">
+		<div class="box__container">
+			<div class="box__img">
+				<img src="img/familyBl.png">
+			</div>
+			<div>
+				<input class="form-control ValEmail" id="txtemail" type="email" required placeholder="Email">
+				<input class="form-control" id="passsword" type="password" placeholder="Password">
+			</div>
+			<div class="box__button">
+				<button id="btnLogin" class="btn btn-action">Login</button>
+			</div>
+			<!--<button id="btnSingUp" class="btn btn-secondary">Registrarse</button>
+			<button id="btnLogout" class="btn btn-action hide">Logout</button>-->
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Georeferencing map</title>
+    <link rel="shortcut icon" href="img/icon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/projects.js"></script>
+
+    <script type="text/javascript" src="js/family_hostel.js"></script>
+
+    <script type="text/javascript" src="js/javascript.js"></script>
+    <script src="js/keyfirebase.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <!--<script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA-pvumSXSLneRyZLXuM0dnZj2Y4EwdG-4",
+            authDomain: "prueba-6f2d0.firebaseapp.com",
+            databaseURL: "https://prueba-6f2d0.firebaseio.com",
+            projectId: "prueba-6f2d0",
+            storageBucket: "prueba-6f2d0.appspot.com",
+            messagingSenderId: "88001220806"
+        };
+        firebase.initializeApp(config);
+    </script>-->
+    <script type="text/javascript" src="js/administracion.js"></script>
+</head>
+
+<style>
+    .main{
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+    }
+
+    #map{
+        width: calc(100% - 220px);
+    }
+
+    .aside{
+        width: 238px;
+        background: var(--color_blueFamily);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+           top:0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+    }
+
+    .aside__nav{
+        min-height:400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        flex: 1;
+    }
+
+    .aside__nav > a{
+        display: block;
+        text-align: center;
+        padding: .5em;
+    }
+
+
+    .contact{
+        padding: 1em;
+    }
+
+    .footer__Copy > span{
+        display: block;
+        text-align: center;
+        font-size: .8em;
+    }
+
+@media screen and (max-width: 500px)
+
+
+</style>
+
+
+<body>
+    <!--<header class="menu">Global Families @UPB</header>-->
+    <div class="main">
+        <div id="map"></div>
+        <div class="aside">
+            <div class="aside__nav">
+                <a href="http://localhost:8080/mapa/public/trainee.html">
+                    <img src="img/add.png">
+                </a>
+                <a href="http://localhost:8080/mapa/public/Project-Form.html">
+                    <img  src="img/add.png">
+                </a>
+                <a href="http://localhost:8080/mapa/public/Family-Form.html">
+                    <img  src="img/add.png">
+                </a>
+                <a href="">
+                    <img  src="img/add.png">
+                </a>
+            </div>
+            <div class="contact">
+                <h4>Contact</h4>
+                <div class="name__contact">
+                    <p><strong>Name: </strong> Leonardo Romero</p>
+                    <p><strong>Cell Phone:</strong> 301-695-4239</p>
+                </div>
+                <div class="name__contact">
+                    <p><strong>Name: </strong> Diego Contreras</p>
+                    <p><strong>Cell Phone:</strong> 313-863-7341</p>
+                </div>
+            </div>
+            <div class="footer__Copy">
+                <span>©COPYRIGHT-UPB-MEDELLIN-2018</span>
+            </div>
+            <!--<button id="btnLogout" class="btn btn-action hide">Logout</button>-->
+        </div>
+    </div>
+
+    <!--<div id="map"></div>-->
+    <footer class="footer">
+        <div class="btn_mapP">
+            <button class="btn__maps btn-m"  id="hostel">
+                <img src="img/family.png"/>
+            </button>
+            <a class="btn__maps" href="https://prueba-6f2d0.firebaseapp.com/Project-Form.html"> 
+                <img src="img/plus.png"/>
+            </a>
+            <span class="btn__maps">6</span>
+        </div>
+        <div class="btn_mapF">
+            <button class="btn__maps btn-m"  id="family"> 
+                <img src="img/hostel.png"/>
+            </button>
+            <a class="btn__maps" href="https://prueba-6f2d0.firebaseapp.com/"> 
+                <img src="img/plus.png"/>
+            </a>
+            <span class="btn__maps">0</span>
+        </div>
+         <div class="btn_mapH">
+            <button class="btn__maps btn-m"  id="project">
+                <img src="img/project.png"/>
+            </button>
+            <a class="btn__maps" href="https://prueba-6f2d0.firebaseapp.com/Family-Form.html"> 
+                <img src="img/plus.png"/>
+            </a>
+            <span class="btn__maps">3</span>
+        </div>
+    </footer>
+</body>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAes-uCryexVclQPO-Z627Ej6R8tWEiJDg&callback=initMap"></script>
+</html>
+
+<script type="text/javascript">
+    
+</script>
