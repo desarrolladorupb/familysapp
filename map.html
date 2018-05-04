@@ -48,7 +48,7 @@
     }
 
     .aside{
-        width: 238px;
+        width: 220px;
         background: var(--color_blueFamily);
         display: flex;
         flex-direction: column;
@@ -84,7 +84,16 @@
         font-size: .8em;
     }
 
-@media screen and (max-width: 500px)
+@media screen and (max-width:800px){
+.aside{
+    right: -220px;
+    transition: all .5s linear;
+    z-index: 100;
+}
+#map{
+    width: 100%;
+}
+}
 
 
 </style>
