@@ -4,7 +4,7 @@ $(document).ready(function() {
 	$('#committee').change(function() {
 		var committe = $('#committee').val();
   		if(committe === "UPB"){
-  			$(location).attr('href',"http://localhost:8080/mapa/public/login.html"); 
+  			 $(location).attr('href',"http://localhost/Desarrollo-Upb/familysapp/login.html"); 
   		}else{
   			swal({
                 title: "Warning",
@@ -43,9 +43,9 @@ $(document).ready(function() {
     $('.ValText').on('keypress', function (e) {
         if (event.keyCode >32 && event.keyCode  <65) event.returnValue = false;
     });
-    /*Fin validacion campo texto**/
+    /*Fin validacion campo texto*/
 
-    /*Inicio validacion campo texto*/
+    /*Inicio validacion campo num*/
     $('.ValNum').on('keypress', function (e) {
         var keyCode = event.keyCode || event.which,
             allowedKey = keyCode === 8  ||  // backspace
@@ -54,12 +54,28 @@ $(document).ready(function() {
                          keyCode === 37 ||  // left
                          keyCode === 39 ||  // right
                          keyCode === 46 ||  // del
-                         (keyCode >= 48 && keyCode <= 57);
+                         (keyCode >= 48 && keyCode <= 57 || keyCode >= 105 && keyCode <= 96 );
         if (!allowedKey) {
             event.preventDefault();
         }
     });
-    /*Fin validacion campo texto**/
+    /*Fin validacion campo num*/
+
+    /*Inicio validacion campo num_longitud*/
+    $('.ValNumLeng').on('keypress', function (e) {
+        var keyCode = event.keyCode || event.which,
+            allowedKey = keyCode === 8  ||  // backspace
+                         keyCode === 9  ||  // tab
+                         keyCode === 13 ||  // enter
+                         keyCode === 37 ||  // left
+                         keyCode === 39 ||  // right
+                         keyCode === 46 ||  // del
+                         (keyCode >= 48 && keyCode <= 57 || keyCode >= 105 && keyCode <= 96 || keyCode === 45);
+        if (!allowedKey) {
+            event.preventDefault();
+        }
+    });
+    /*Fin validacion campo num_longitud*/
 
     /*Inicio validacion correo*/
     $('.ValEmail').change(function() {

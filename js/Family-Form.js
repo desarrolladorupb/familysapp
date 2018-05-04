@@ -39,7 +39,14 @@ $(document).ready(function() {
             dtfamily.clear().draw();
             if (snapshot.val() != null) {
                 $.each(snapshot.val(), function(index, value) {
-                    var row = dtfamily.row.add([index, value.Neighborhood, value.Address, value.Phone, value.Email, value.Latitud, value.Longitud])
+                    var row = dtfamily.row.add([index, 
+                                                value.Neighborhood, 
+                                                value.Address, 
+                                                value.Phone, 
+                                                value.Email, 
+                                                value.Latitud, 
+                                                value.Longitud
+                                            ])
                         .draw()
                         .node();
                 });
