@@ -92,11 +92,17 @@ $(document).ready(function() {
         accion = lstAcciones.Nuevo;
         Limpiar();
         hostel.prop('disabled', false);
+        $("#exampleRadios2").prop("checked", true);
+        $('#btnGuardar').attr("disabled", true);
         $('#md-insertar').modal('show');
     });
 
     /*Modificar*/
     btnModificar.on("click", function(e) {
+
+        $("#exampleRadios2").prop("checked", true);
+        $('#btnGuardar').attr("disabled", true);
+
         accion = lstAcciones.Modificar;
         var row = dthostel.row(".selected");
         if (row.length > 0) {
