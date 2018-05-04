@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/projects.js"></script>
@@ -37,7 +37,26 @@
 </head>
 
 <style>
+
+
+    header.header{
+        width: 100%;
+        height: 50px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 1em;
+        padding-right: 1em;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0,0,0,.06);
+        background: #fff;
+    }
+
     .main{
+        margin-top: 50px;
         width: 100%;
         min-height: 100vh;
         display: flex;
@@ -53,18 +72,19 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-           top:0;
+           top:50px;
         right: 0;
         bottom: 0;
         overflow-y: auto;
     }
 
     .aside__nav{
-        min-height:400px;
+        min-height:350px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         flex: 1;
+        border-bottom: 1px solid rgba(255,255,255,.1);
     }
 
     .aside__nav > a{
@@ -78,20 +98,43 @@
         padding: 1em;
     }
 
+    .name__contact > p{
+        margin: 0;
+    }
+
     .footer__Copy > span{
         display: block;
         text-align: center;
         font-size: .8em;
     }
 
+    .logout{
+        display: block;
+        width: 100%;
+        margin: 0;
+        font: bold;
+        padding: .3em;
+       border-bottom: 1px solid rgba(255,255,255,.1);
+       cursor: pointer;
+
+    }
+
+#btn_aside{
+    display: none;
+}
+
 @media screen and (max-width:800px){
 .aside{
     right: -220px;
-    transition: all .5s linear;
+    transition: all .2s linear;
     z-index: 100;
 }
 #map{
     width: 100%;
+}
+
+#btn_aside{
+    display: block;
 }
 }
 
@@ -100,8 +143,21 @@
 
 
 <body>
-    <!--<header class="menu">Global Families @UPB</header>-->
+    <header class="header">
+<button id="btnLogout" class="btn btn-danger">Logout</button>
+<script type="text/javascript">
+    $("#btnLogout").click(function () {
+        alert("btnLogout");
+        firebase.auth().signOut();
+        location.href = "./login.html";
+    });
+</script>
+        <button id="btn_aside" class="btn btn-secondary">menu</button>
+    </header>
     <div class="main">
+        <div class="banner">
+
+        </div>
         <div id="map"></div>
         <div class="aside">
             <div class="aside__nav">
@@ -118,6 +174,7 @@
                     <img  src="img/add.png">
                 </a>
             </div>
+           
             <div class="contact">
                 <h4>Contact</h4>
                 <div class="name__contact">
@@ -131,14 +188,6 @@
             </div>
             <div class="footer__Copy">
                 <span>©COPYRIGHT-UPB-MEDELLIN-2018</span>
-                <button id="btnLogout" class="btn btn-action hide">Logout</button>
-                <script type="text/javascript">
-                        $( "#btnLogout" ).click(function() {
-                            alert( "btnLogout" );
-                            firebase.auth().signOut();
-                            location.href ="./login.html";
-                        });
-                </script>
             </div>
             <!--<button id="btnLogout" class="btn btn-action hide">Logout</button>-->
         </div>
@@ -179,5 +228,27 @@
 </html>
 
 <script type="text/javascript">
+
+(() => {
+
+    var btn_aside = $("#btn_aside");
+    var contador = 1;
+
+    btn_aside.on('click',()=>{
+
+        if(contador == 1){
+            $('.aside').animate({
+                right:'0'
+            });
+
+            contador = 0;
+        }else{
+                contador = 1;
+                $('.aside').animate({
+                    right:'-220px'
+                });
+            }
+        });
+})();
     
 </script>
