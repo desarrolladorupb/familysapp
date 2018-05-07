@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Upload Geo..</title>
+    <title>Upload Fundation..</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,42 +10,40 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.0.0/dt-1.10.16/datatables.min.css" />-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css" />
     <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
     <script src="js/keyfirebase.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/config.js"></script>
+    <script src="js/Fundation-Form.js"></script>
 </head>
 
 <body>
-    <div class="container__two">
+    <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center my-2">Add Trainee</h1>
+                <h1 class="text-center my-2">Add Fundation</h1>
             </div>
-            <div class="col-12 mb-4 fonts__style">
+            <div class="col-12 mb-4">
                 <button class="btn btn-secondary mr-3" id="btnInsertar">Insert</button>
                 <button class="btn btn-secondary mr-3" id="btnModificar">Modify</button>
                 <button class="btn btn-secondary mr-3" id="btnEliminar">Remove</button>
                 <div class="btn btn-secondary mr-3">
                     <a href="https://prueba-6f2d0.firebaseapp.com/map.html" class="button"><img src="img/maps.png"/></a>
                 </div>
-                
             </div>
             <!--Inicio de la tabla -->
             <div class="col-12 mb-5">
-                <table id="dtexample" class="table table-striped table-bordered selectedTable" style="width:100%">
+                <table id="dtfundation" class="table table-striped table-bordered selectedTable" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Name of the trainee</th>
+                            <th>Name of the Fundation</th>
+                            <th>Project</th>
                             <th>Neighborhood</th>
                             <th>Address</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Family</th>
-                            <th>Project</th>
-                            <th>Fundation</th>
+                            <th>Latitude</th>
+                            <th>Length</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +61,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">New Trainee</h5>
+                    <h5 class="modal-title">New Fundation</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -71,8 +69,13 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <input type="text" class="form-control ValText" id="trainee" placeholder="Name and Last name">
+                            <input type="text" class="form-control ValText" id="fundation" placeholder="Name of the Fundation">
                         </div>
+                        <div class="icon__group d-flex">
+                            <select id="project" class="form-control" placeholder="Length">
+                            </select>
+                        </div>
+                        <br>
                         <div class="form-group">
                             <input type="text" class="form-control" id="neighborhood" placeholder="Neighborhood">
                         </div>
@@ -85,21 +88,12 @@
                         <div class="form-group">
                             <input type="text" name="email" class="form-control ValEmail" id="email" placeholder="Email">
                         </div>
-                        <div class="icon__group d-flex">
-                            <select id="family" class="form-control family" placeholder="Length">
-                            </select>
+                        <div class="form-group">
+                            <input type="text" class="form-control ValNum" id="latitud" placeholder="Latitude">
                         </div>
-                        <br>
-                        <div class="icon__group d-flex">
-                            <select id="project" class="form-control" placeholder="Length">
-                            </select>
+                        <div class="form-group">
+                            <input type="text" class="form-control ValNumLeng" id="longitud" placeholder="Length">
                         </div>
-                        <br>
-                        <div class="icon__group d-flex">
-                            <select id="fundation" class="form-control" placeholder="Length">
-                            </select>
-                        </div>
-                        <br>
                         <div>
                             <div>
                                 <h4>I authorize AIESEC to handle my data.</h4>
@@ -122,8 +116,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer fonts__style">
-                    <button type="submit" id="btnGuardar" class="btn btn-primary" disabled="true">Save</button>
+                <div class="modal-footer">
+                    <button type="button" id="btnGuardar" class="btn btn-primary">Save</button>
                     <button type="button" id="btnCancelar" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>

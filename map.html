@@ -8,18 +8,16 @@
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/projects.js"></script>
-
     <script type="text/javascript" src="js/family_hostel.js"></script>
-
     <script type="text/javascript" src="js/javascript.js"></script>
     <script src="js/keyfirebase.js"></script>
-    
     <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script type="text/javascript" src="js/sweet/sweetalert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="js/sweet/sweetalert.css">
 
     <script>
         // Initialize Firebase
@@ -36,121 +34,11 @@
     <script type="text/javascript" src="js/administracion.js"></script>
 </head>
 
-<style>
-
-
-    header.header{
-        width: 100%;
-        height: 50px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-left: 1em;
-        padding-right: 1em;
-        z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0,0,0,.06);
-        background: #fff;
-    }
-
-    .main{
-        margin-top: 50px;
-        width: 100%;
-        min-height: 100vh;
-        display: flex;
-    }
-
-    #map{
-        width: calc(100% - 220px);
-    }
-
-    .aside{
-        width: 220px;
-        background: var(--color_blueFamily);
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-           top:50px;
-        right: 0;
-        bottom: 0;
-        overflow-y: auto;
-    }
-
-    .aside__nav{
-        min-height:350px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        flex: 1;
-        border-bottom: 1px solid rgba(255,255,255,.1);
-    }
-
-    .aside__nav > a{
-        display: block;
-        text-align: center;
-        padding: .5em;
-    }
-
-
-    .contact{
-        padding: 1em;
-    }
-
-    .name__contact > p{
-        margin: 0;
-    }
-
-    .footer__Copy > span{
-        display: block;
-        text-align: center;
-        font-size: .8em;
-    }
-
-    .logout{
-        display: block;
-        width: 100%;
-        margin: 0;
-        font: bold;
-        padding: .3em;
-       border-bottom: 1px solid rgba(255,255,255,.1);
-       cursor: pointer;
-
-    }
-
-#btn_aside{
-    display: none;
-}
-
-@media screen and (max-width:800px){
-.aside{
-    right: -220px;
-    transition: all .2s linear;
-    z-index: 100;
-}
-#map{
-    width: 100%;
-}
-
-#btn_aside{
-    display: block;
-}
-}
-
-
-</style>
-
-
 <body>
     <header class="header">
-<button id="btnLogout" class="btn btn-danger">Logout</button>
+<button id="btnLogout" class="btn btn-secondary">Logout</button>
 <script type="text/javascript">
-    $("#btnLogout").click(function () {
-        alert("btnLogout");
-        firebase.auth().signOut();
-        location.href = "./login.html";
-    });
+
 </script>
         <button id="btn_aside" class="btn btn-secondary">menu</button>
     </header>
@@ -161,17 +49,35 @@
         <div id="map"></div>
         <div class="aside">
             <div class="aside__nav">
-                <a href="http://localhost:8080/mapa/public/trainee.html">
-                    <img src="img/add.png">
+                <a id="family">
+                    <img src="img/home.png">
                 </a>
-                <a href="http://localhost:8080/mapa/public/Project-Form.html">
-                    <img  src="img/add.png">
+                <a href="./Family-Form.html">
+                    <img src="img/pluss.png">
                 </a>
-                <a href="http://localhost:8080/mapa/public/Family-Form.html">
-                    <img  src="img/add.png">
+                <a id="">
+                    <img  src="img/backpacker.png">
                 </a>
-                <a href="">
-                    <img  src="img/add.png">
+                <a href="./trainee.html">
+                    <img src="img/pluss.png">
+                </a>
+                <a id="project">
+                    <img  src="img/university.png">
+                </a>
+                <a href="./Project-Form.html">
+                    <img  src="img/pluss.png">
+                </a>
+                <a id="fundation">
+                    <img  src="img/house.png">
+                </a>
+                <a href="./Fundation-Form.html">
+                    <img  src="img/pluss.png">
+                </a>
+                <a id="hostel">
+                    <img  src="img/hotel.png">
+                </a>
+                <a href="./Hostel-Form.html">
+                    <img  src="img/pluss.png">
                 </a>
             </div>
            
@@ -194,7 +100,7 @@
     </div>
 
     <!--<div id="map"></div>-->
-    <footer class="footer">
+    <!--<footer class="footer">
         <div class="btn_mapP">
             <button class="btn__maps btn-m"  id="hostel">
                 <img src="img/family.png"/>
@@ -222,7 +128,7 @@
             </a>
             <span class="btn__maps">3</span>
         </div>
-    </footer>
+    </footer>-->
 </body>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAes-uCryexVclQPO-Z627Ej6R8tWEiJDg&callback=initMap"></script>
 </html>

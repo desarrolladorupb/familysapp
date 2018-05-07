@@ -16,6 +16,7 @@ $(document).ready(function() {
     var email = $("#email");
     var family = $("#family");
     var project = $("#project");
+    var fundation = $("#fundation");
 
     /*se inicializa la datatable*/
     var dtexample = $("#dtexample").DataTable({
@@ -38,7 +39,14 @@ $(document).ready(function() {
             dtexample.clear().draw();
             if (snapshot.val() != null) {
                 $.each(snapshot.val(), function(index, value) {
-                    var row = dtexample.row.add([index, value.Neighborhood, value.Address, value.Phone, value.Email, value.family, value.project])
+                    var row = dtexample.row.add([index, 
+                                                value.Neighborhood, 
+                                                value.Address, 
+                                                value.Phone, 
+                                                value.Email, 
+                                                value.family, 
+                                                value.project,
+                                                value.fundation])
                         .draw()
                         .node();
                 });
@@ -56,6 +64,7 @@ $(document).ready(function() {
         email.val("");
         family.val("");
         project.val("");
+        fundation.val("");
     };
     /*Fin Limpiar campos del formulario*/
 
@@ -116,10 +125,10 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (family.val() == "") {
+        }else if (family.val() === "Select_Family") {
             swal({
                 title: "Warning",
-                text: "Enter the name of the family or the hostel",
+                text: "Select Family",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#ff1803",
@@ -127,10 +136,21 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        } else if (project.val() == "") {
+        } else if (project.val() === "Select_Project") {
             swal({
                 title: "Warning",
-                text: "Enter the latitude",
+                text: "Select Project",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#ff1803",
+                confirmButtonText: "Close",
+                closeOnConfirm: false
+            });
+            return false;
+        } else if (fundation.val() == "Select_Fundation") {
+            swal({
+                title: "Warning",
+                text: "Select Fundation",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#ff1803",
@@ -172,7 +192,7 @@ $(document).ready(function() {
           starCountRef.on("value",
             function(snapshot) {
                 $('#family >option').remove();
-                $('#family').append('<option value="Select_Project">Select Family</option>');
+                $('#family').append('<option value="Select_Family">Select Family</option>');
                 $.each(snapshot.val(), function(index, value) {
                         $('#family').append($('<option>', { 
                           value: index,
@@ -182,13 +202,13 @@ $(document).ready(function() {
             }
         );
 
-        var starCountRef = firebase.database().ref("Hostel");
+        var starCountRef = firebase.database().ref("Fundation");
           starCountRef.on("value",
             function(snapshot) {
-                $('.hostel >option').remove();
-                $('.hostel').append('<option value="Select_Project">Select Hostel</option>');
+                $('#fundation >option').remove();
+                $('#fundation').append('<option value="Select_Fundation">Select Fundation</option>');
                 $.each(snapshot.val(), function(index, value) {
-                        $('.hostel').append($('<option>', { 
+                        $('#fundation').append($('<option>', { 
                           value: index,
                           text : index 
                         }));
@@ -243,6 +263,7 @@ $(document).ready(function() {
             email.val(data[4]);
             family.val(data[5]);
             project.val(data[6]);
+            fundation.val(data[7]);
             $('#md-insertar').modal('show');
         } else {
             $('#md-insertar').modal('hide');
@@ -332,6 +353,7 @@ $(document).ready(function() {
                                 Email: email.val(),
                                 family: family.val(),
                                 project: project.val(),
+                                fundation: fundation.val(),
                             });
                             $('#md-insertar').modal('hide');
                             swal({
@@ -366,7 +388,8 @@ $(document).ready(function() {
                     Phone: phone.val(),
                     Email: email.val(),
                     family: family.val(),
-                    project: project.val()
+                    project: project.val(),
+                    fundation: fundation.val()
                 });
                 $('#md-insertar').modal('hide');
                 swal({

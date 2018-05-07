@@ -7,7 +7,8 @@ $(document).ready(function() {
     var btnGuardar = $("#btnGuardar");
     var btnCancelar = $("#btnCancelar");
     /*Campos de el formulario de la modal*/
-    var hostel = $("#hostel");
+    var fundation = $("#fundation");
+    var project = $("#project");
     var neighborhood = $("#neighborhood");
     var address = $("#address");
     var phone = $("#phone");
@@ -17,7 +18,7 @@ $(document).ready(function() {
     /*Ventana modal*/
 
     /*se inicializa la datatable*/
-    var dthostel = $("#dthostel").DataTable({
+    var dtfundation = $("#dtfundation").DataTable({
         "paging": false,
         "ordering": false,
         "info": false
@@ -30,13 +31,14 @@ $(document).ready(function() {
         Eliminar: "Eliminar"
     }
     var accion;
-    var starCountRef = firebase.database().ref("Hostel");
+    var starCountRef = firebase.database().ref("Fundation");
     starCountRef.on("value",
         function(snapshot) {
-            dthostel.clear().draw();
+            dtfundation.clear().draw();
             if (snapshot.val() != null) {
                 $.each(snapshot.val(), function(index, value) {
-                    var row = dthostel.row.add([index,
+                    var row = dtfundation.row.add([index,
+                                                value.Project,
                                                 value.Neighborhood, 
                                                 value.Address, 
                                                 value.Phone, 
@@ -52,7 +54,8 @@ $(document).ready(function() {
 
     /*Limpiar*/
     var Limpiar = function() {
-        hostel.val("");
+        fundation.val("");
+        project.val("");
         neighborhood.val("");
         address.val("");
         phone.val("");
@@ -63,10 +66,21 @@ $(document).ready(function() {
 
     /*validación*/
     var Validar = function() {
-        if (hostel.val() == "") {
+        if (fundation.val() == "") {
             swal({
                 title: "Warning",
-                text: "Enter the name of the hostel",
+                text: "Enter the name of the fundation",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#ff1803",
+                confirmButtonText: "Close",
+                closeOnConfirm: false
+            });
+            return false;
+        }else if (project.val() === "Select_Project") {
+            swal({
+                title: "Warning",
+                text: "Select Project",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#ff1803",
@@ -85,8 +99,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }
-        else if (address.val() == "") {
+        }else if (address.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter the address",
@@ -150,10 +163,25 @@ $(document).ready(function() {
     btnInsertar.on("click", function(e) {
         accion = lstAcciones.Nuevo;
         Limpiar();
-        hostel.prop('disabled', false);
+        fundation.prop('disabled', false);
         $("#exampleRadios2").prop("checked", true);
         $('#btnGuardar').attr("disabled", true);
         $('#md-insertar').modal('show');
+
+        var starCountRef = firebase.database().ref("Project");
+          starCountRef.on("value",
+            function(snapshot) {
+                $('#project >option').remove();
+                $('#project').append('<option value="Select_Project">Select Project</option>');
+                $.each(snapshot.val(), function(index, value) {
+                        $('#project').append($('<option>', { 
+                          value: index,
+                          text : index 
+                        }));
+                });
+            }
+        );
+
     });
 
     /*Modificar*/
@@ -163,17 +191,18 @@ $(document).ready(function() {
         $('#btnGuardar').attr("disabled", true);
 
         accion = lstAcciones.Modificar;
-        var row = dthostel.row(".selected");
+        var row = dtfundation.row(".selected");
         if (row.length > 0) {
             var data = row.data();
-            hostel.prop('disabled', true);
-            hostel.val(data[0]);
-            neighborhood.val(data[1]);
-            address.val(data[2]);
-            phone.val(data[3]);
-            email.val(data[4]);
-            latitud.val(data[5]);
-            longitud.val(data[6]);
+            fundation.prop('disabled', true);
+            fundation.val(data[0]);
+            project.val(data[1]);
+            neighborhood.val(data[2]);
+            address.val(data[3]);
+            phone.val(data[4]);
+            email.val(data[5]);
+            latitud.val(data[6]);
+            longitud.val(data[7]);
             $('#md-insertar').modal('show');
         } else {
             $('#md-insertar').modal('hide');
@@ -192,13 +221,13 @@ $(document).ready(function() {
 
     /*Eliminar*/
     btnEliminar.on("click", function(e) {
-        var row = dthostel.row(".selected");
+        var row = dtfundation.row(".selected");
         if (row.length > 0) {
             var data = row.data();
-            var Hostel = data[0];
+            var Fundation = data[0];
             swal({
                     title: "¿Remove?",
-                    text: "You really want to delete the selected hostel",
+                    text: "You really want to delete the selected fundation",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#ff1803",
@@ -206,12 +235,12 @@ $(document).ready(function() {
                     closeOnConfirm: false
                 },
                 function() {
-                    var starCountRef = firebase.database().ref("Hostel/" + Hostel);
+                    var starCountRef = firebase.database().ref("Fundation/" + Fundation);
                     starCountRef.remove(function(error) {
                         if (error == null) {
                             swal({
                                 title: "Removed!",
-                                text: "Hostel deleted successfully",
+                                text: "Fundation deleted successfully",
                                 type: "success",
                                 showCancelButton: true,
                                 confirmButtonColor: "#ff1803",
@@ -235,7 +264,7 @@ $(document).ready(function() {
         } else {
             swal({
                 title: "Warning",
-                text: "You really want to delete the selected hostel",
+                text: "You really want to delete the selected fundation",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#ff1803",
@@ -249,13 +278,14 @@ $(document).ready(function() {
     /*guardar*/
     btnGuardar.on("click", function(e) {
         if (Validar()) {
-            var Hostel = hostel.val().toUpperCase().trim();
+            var Fundation = fundation.val().toUpperCase().trim();
             if (accion == lstAcciones.Nuevo) {
-                var starCountRef = firebase.database().ref("Hostel/" + Hostel);
+                var starCountRef = firebase.database().ref("Fundation/" + Fundation);
                 starCountRef.once('value').then(
                     function(snapshot) {
                         if (snapshot.val() == null) {
-                            firebase.database().ref('Hostel/' + Hostel).set({
+                            firebase.database().ref('Fundation/' + Fundation).set({
+                                Project: project.val(),
                                 Neighborhood: neighborhood.val(),
                                 Address: address.val(),
                                 Phone: phone.val(),
@@ -266,7 +296,7 @@ $(document).ready(function() {
                             $('#md-insertar').modal('hide');
                             swal({
                                 title: "Success!",
-                                text: "Hostel saved correctly",
+                                text: "Fundation saved correctly",
                                 type: "success",
                                 showCancelButton: true,
                                 confirmButtonColor: "#ff1803",
@@ -276,7 +306,7 @@ $(document).ready(function() {
                         } else {
                             swal({
                                 title: "Warning",
-                                text: "Hostel already exists",
+                                text: "Fundation already exists",
                                 type: "warning",
                                 showCancelButton: true,
                                 confirmButtonColor: "#ff1803",
@@ -289,8 +319,9 @@ $(document).ready(function() {
                 );
 
             } else if (accion == lstAcciones.Modificar) {
-                firebase.database().ref('Hostel/' + Hostel).set({
-                    hostel: hostel.val(),
+                firebase.database().ref('Fundation/' + Fundation).set({
+                    fundation: fundation.val(),
+                    Project: project.val(),
                     Neighborhood: neighborhood.val(),
                     Address: address.val(),
                     Phone: phone.val(),
@@ -301,7 +332,7 @@ $(document).ready(function() {
                 $('#md-insertar').modal('hide');
                 swal({
                     title: "Success!",
-                    text: "Hostel Modified correctly",
+                    text: "Fundation Modified correctly",
                     type: "success",
                     showCancelButton: true,
                     confirmButtonColor: "#ff1803",
@@ -313,7 +344,7 @@ $(document).ready(function() {
 
     });
     var validate_id = (mensaje, e) => {
-        if (hostel === null) {
+        if (fundation === null) {
             swal('', mensaje, 'error');
             e.stopPropagation();
         }

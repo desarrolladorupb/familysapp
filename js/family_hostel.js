@@ -1,18 +1,21 @@
 $(document).ready(function() {
-    $("#hostel").click(function(){
+    $("#family").click(function(){
+        initMappp();
+    });
+
+    $("#project").click(function(){
         initMapp();
     });
-    $("#family").click(function(){
-        initMap();
-    });
-    $("#project").click(function(){
-        initMappp();
+
+    $("#fundation").click(function(){
+        initMapppp();
     });
 
 });
 
 var map;
 window.initMappp = function(){
+
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12,
         center: { lat: 6.238, lng: -75.583 }

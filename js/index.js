@@ -4,7 +4,7 @@ $(document).ready(function() {
 	$('#committee').change(function() {
 		var committe = $('#committee').val();
   		if(committe === "UPB"){
-  			 $(location).attr('href',"http://localhost/Desarrollo-Upb/familysapp/login.html"); 
+  			 $(location).attr('href',"./login.html"); 
   		}else{
   			swal({
                 title: "Warning",
