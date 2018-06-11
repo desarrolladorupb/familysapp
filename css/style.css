@@ -348,8 +348,29 @@ header.header {
     text-align: right;
 }
 
+#family img{
+    height: 33px;
+    cursor: pointer;
+}
+#trainee img{
+    height: 33px;
+    cursor: pointer;
+}
+#project img{
+    height: 33px;
+    cursor: pointer;
+}
+#fundation img{
+    height: 33px;
+    cursor: pointer;
+}
+#hostel img{
+    height: 33px;
+    cursor: pointer;
+}
 .contact {
     padding: 1em;
+    cursor: pointer;
 }
 
 .name__contact>p {
@@ -375,6 +396,35 @@ header.header {
 #btn_aside {
     display: none;
 }
+
+/*Tooltips de ayuda para el menu*/
+.tooltipp {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltipp .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 3px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -56px;
+    font-size: 13px;
+}
+
+.tooltipp:hover .tooltiptext {
+    visibility: visible;
+}
+/*Fin*/
 
 @media screen and (min-width: 320px) and (max-width: 499px) {
     .section__img {

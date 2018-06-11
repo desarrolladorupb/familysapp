@@ -69,7 +69,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (neighborhood.val() == "") {
+        } else if (neighborhood.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter name of the neighborhood",
@@ -80,7 +80,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (address.val() == "") {
+        } else if (address.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter the address",
@@ -91,7 +91,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (phone.val() == "") {
+        } else if (phone.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter the phone number",
@@ -102,7 +102,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (email.val() == "") {
+        } else if (email.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter the email",
@@ -113,7 +113,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (latitud.val() == "") {
+        } else if (latitud.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter the latitude",
@@ -242,67 +242,83 @@ $(document).ready(function() {
 
     /*guardar*/
     btnGuardar.on("click", function(e) {
-        if (Validar()) {
-            var Project = project.val().toUpperCase().trim();
-            if (accion == lstAcciones.Nuevo) {
-                var starCountRef = firebase.database().ref("Project/" + Project);
-                starCountRef.once('value').then(
-                    function(snapshot) {
-                        if (snapshot.val() == null) {
-                            firebase.database().ref('Project/' + Project).set({
-                                Neighborhood: neighborhood.val(),
-                                Address: address.val(),
-                                Phone: phone.val(),
-                                Email: email.val(),
-                                Latitud: latitud.val(),
-                                Longitud: longitud.val(),
-                            });
-                            $('#md-insertar').modal('hide');
-                            swal({
-                                title: "Success!",
-                                text: "Project saved correctly",
-                                type: "success",
-                                showCancelButton: true,
-                                confirmButtonColor: "#ff1803",
-                                confirmButtonText: "Close",
-                                closeOnConfirm: false
-                            });
-                        } else {
-                            swal({
-                                title: "Warning",
-                                text: "Project already exists",
-                                type: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#ff1803",
-                                confirmButtonText: "Yes",
-                                closeOnConfirm: false
-                            });
 
+        var longitudnum = parseInt($('#longitud').val());
+
+        if (longitudnum <= -0) {
+            if (Validar()) {
+                var Project = project.val().toUpperCase().trim();
+                if (accion == lstAcciones.Nuevo) {
+                    var starCountRef = firebase.database().ref("Project/" + Project);
+                    starCountRef.once('value').then(
+                        function(snapshot) {
+                            if (snapshot.val() == null) {
+                                firebase.database().ref('Project/' + Project).set({
+                                    Neighborhood: neighborhood.val(),
+                                    Address: address.val(),
+                                    Phone: phone.val(),
+                                    Email: email.val(),
+                                    Latitud: latitud.val(),
+                                    Longitud: longitud.val(),
+                                });
+                                $('#md-insertar').modal('hide');
+                                swal({
+                                    title: "Success!",
+                                    text: "Project saved correctly",
+                                    type: "success",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#ff1803",
+                                    confirmButtonText: "Close",
+                                    closeOnConfirm: false
+                                });
+                            } else {
+                                swal({
+                                    title: "Warning",
+                                    text: "Project already exists",
+                                    type: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#ff1803",
+                                    confirmButtonText: "Yes",
+                                    closeOnConfirm: false
+                                });
+
+                            }
                         }
-                    }
-                );
+                    );
 
-            } else if (accion == lstAcciones.Modificar) {
-                firebase.database().ref('Project/' + Project).set({
-                    Neighborhood: neighborhood.val(),
-                    Address: address.val(),
-                    Phone: phone.val(),
-                    Email: email.val(),
-                    Latitud: latitud.val(),
-                    Longitud: longitud.val(),
-                    project: project.val()
-                });
-                $('#md-insertar').modal('hide');
-                swal({
-                    title: "Success!",
-                    text: "Project Modified correctly",
-                    type: "success",
-                    showCancelButton: true,
-                    confirmButtonColor: "#ff1803",
-                    confirmButtonText: "Close",
-                    closeOnConfirm: false
-                });
+                } else if (accion == lstAcciones.Modificar) {
+                    firebase.database().ref('Project/' + Project).set({
+                        Neighborhood: neighborhood.val(),
+                        Address: address.val(),
+                        Phone: phone.val(),
+                        Email: email.val(),
+                        Latitud: latitud.val(),
+                        Longitud: longitud.val(),
+                        project: project.val()
+                    });
+                    $('#md-insertar').modal('hide');
+                    swal({
+                        title: "Success!",
+                        text: "Project Modified correctly",
+                        type: "success",
+                        showCancelButton: true,
+                        confirmButtonColor: "#ff1803",
+                        confirmButtonText: "Close",
+                        closeOnConfirm: false
+                    });
+                }
             }
+        } else {
+            $('#longitud').val("");
+            swal({
+                title: "Warning!",
+                text: "The length field must start with -75",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#ff1803",
+                confirmButtonText: "Close",
+                closeOnConfirm: false
+            });
         }
 
     });
@@ -327,24 +343,24 @@ $(document).ready(function() {
         }
     });
 
-            /*Inicio de la validacion de los datos*/
-        $( "#exampleRadios1" ).change(function() {
-            var aceptar = $('#exampleRadios1').val($(this).is(':checked'));
+    /*Inicio de la validacion de los datos*/
+    $("#exampleRadios1").change(function() {
+        var aceptar = $('#exampleRadios1').val($(this).is(':checked'));
 
-            if($(this).is(":checked")){
-                $("#btnGuardar").prop( "disabled", false );
-            }else{
-                $("#btnGuardar").prop( "disabled", true );
-            }
-        });
-        $( "#exampleRadios2" ).change(function() {
-            var aceptar = $('#exampleRadios1').val($(this).is(':checked'));
+        if ($(this).is(":checked")) {
+            $("#btnGuardar").prop("disabled", false);
+        } else {
+            $("#btnGuardar").prop("disabled", true);
+        }
+    });
+    $("#exampleRadios2").change(function() {
+        var aceptar = $('#exampleRadios1').val($(this).is(':checked'));
 
-            if($(this).is(":checked")){
-                $("#btnGuardar").prop( "disabled", true );
-            }else{
-                $("#btnGuardar").prop( "disabled", false );
-            }
-        });
-        /*fin de la validación de datos*/
+        if ($(this).is(":checked")) {
+            $("#btnGuardar").prop("disabled", true);
+        } else {
+            $("#btnGuardar").prop("disabled", false);
+        }
+    });
+    /*fin de la validación de datos*/
 });

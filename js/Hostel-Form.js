@@ -248,7 +248,10 @@ $(document).ready(function() {
 
     /*guardar*/
     btnGuardar.on("click", function(e) {
-        if (Validar()) {
+
+        var longitudnum = parseInt($('#longitud').val());
+        if (longitudnum <= -0) {
+            if (Validar()) {
             var Hostel = hostel.val().toUpperCase().trim();
             if (accion == lstAcciones.Nuevo) {
                 var starCountRef = firebase.database().ref("Hostel/" + Hostel);
@@ -309,6 +312,18 @@ $(document).ready(function() {
                     closeOnConfirm: false
                 });
             }
+        }
+        }else{
+                $('#longitud').val("");
+                swal({
+                        title: "Warning!",
+                        text: "The length field must start with -75",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#ff1803",
+                        confirmButtonText: "Close",
+                        closeOnConfirm: false
+                });
         }
 
     });

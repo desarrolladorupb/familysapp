@@ -27,11 +27,11 @@ $(document).ready(function() {
 
     /*Acciones de los botones*/
     var lstAcciones = {
-        Nuevo: "Guardar",
-        Modificar: "Modificar",
-        Eliminar: "Eliminar"
-    }
-    /*Inicio de la tabla*/
+            Nuevo: "Guardar",
+            Modificar: "Modificar",
+            Eliminar: "Eliminar"
+        }
+        /*Inicio de la tabla*/
     var accion;
     var starCountRef = firebase.database().ref("Family");
     starCountRef.on("value",
@@ -39,14 +39,14 @@ $(document).ready(function() {
             dtfamily.clear().draw();
             if (snapshot.val() != null) {
                 $.each(snapshot.val(), function(index, value) {
-                    var row = dtfamily.row.add([index, 
-                                                value.Neighborhood, 
-                                                value.Address, 
-                                                value.Phone, 
-                                                value.Email, 
-                                                value.Latitud, 
-                                                value.Longitud
-                                            ])
+                    var row = dtfamily.row.add([index,
+                            value.Neighborhood,
+                            value.Address,
+                            value.Phone,
+                            value.Email,
+                            value.Latitud,
+                            value.Longitud
+                        ])
                         .draw()
                         .node();
                 });
@@ -69,89 +69,88 @@ $(document).ready(function() {
 
     /*Inicio de validación que no se envien vacios*/
     var Validar = function() {
-        if (family.val() == "") {
-            swal({
-                title: "Warning",
-                text: "Enter the name of the family",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#ff1803",
-                confirmButtonText: "Close",
-                closeOnConfirm: false
-            });
-            return false;
-        }else if (neighborhood.val() == "") {
-            swal({
-                title: "Warning",
-                text: "Enter name of the neighborhood",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#ff1803",
-                confirmButtonText: "Close",
-                closeOnConfirm: false
-            });
-            return false;
+            if (family.val() == "") {
+                swal({
+                    title: "Warning",
+                    text: "Enter the name of the family",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ff1803",
+                    confirmButtonText: "Close",
+                    closeOnConfirm: false
+                });
+                return false;
+            } else if (neighborhood.val() == "") {
+                swal({
+                    title: "Warning",
+                    text: "Enter name of the neighborhood",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ff1803",
+                    confirmButtonText: "Close",
+                    closeOnConfirm: false
+                });
+                return false;
+            } else if (address.val() == "") {
+                swal({
+                    title: "Warning",
+                    text: "Enter the address",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ff1803",
+                    confirmButtonText: "Close",
+                    closeOnConfirm: false
+                });
+                return false;
+            } else if (phone.val() == "") {
+                swal({
+                    title: "Warning",
+                    text: "Enter the phone number",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ff1803",
+                    confirmButtonText: "Close",
+                    closeOnConfirm: false
+                });
+                return false;
+            } else if (email.val() == "") {
+                swal({
+                    title: "Warning",
+                    text: "Enter the email",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ff1803",
+                    confirmButtonText: "Close",
+                    closeOnConfirm: false
+                });
+                return false;
+            } else if (latitud.val() == "") {
+                swal({
+                    title: "Warning",
+                    text: "Enter the latitude",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ff1803",
+                    confirmButtonText: "Close",
+                    closeOnConfirm: false
+                });
+                return false;
+            } else if (longitud.val() == "") {
+                swal({
+                    title: "Warning",
+                    text: "Enter the length",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ff1803",
+                    confirmButtonText: "Close",
+                    closeOnConfirm: false
+                });
+                return false;
+            } else {
+                return true;
+            }
         }
-        else if (address.val() == "") {
-            swal({
-                title: "Warning",
-                text: "Enter the address",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#ff1803",
-                confirmButtonText: "Close",
-                closeOnConfirm: false
-            });
-            return false;
-        }else if (phone.val() == "") {
-            swal({
-                title: "Warning",
-                text: "Enter the phone number",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#ff1803",
-                confirmButtonText: "Close",
-                closeOnConfirm: false
-            });
-            return false;
-        }else if (email.val() == "") {
-            swal({
-                title: "Warning",
-                text: "Enter the email",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#ff1803",
-                confirmButtonText: "Close",
-                closeOnConfirm: false
-            });
-            return false;
-        }else if (latitud.val() == "") {
-            swal({
-                title: "Warning",
-                text: "Enter the latitude",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#ff1803",
-                confirmButtonText: "Close",
-                closeOnConfirm: false
-            });
-            return false;
-        } else if (longitud.val() == "") {
-            swal({
-                title: "Warning",
-                text: "Enter the length",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#ff1803",
-                confirmButtonText: "Close",
-                closeOnConfirm: false
-            });
-            return false;
-        } else {
-            return true;
-        }
-    }
-    /*Fin validación que no se envien vacios*/
+        /*Fin validación que no se envien vacios*/
 
     /*Boton Insertar*/
     btnInsertar.on("click", function(e) {
@@ -169,7 +168,7 @@ $(document).ready(function() {
 
         $("#exampleRadios2").prop("checked", true);
         $('#btnGuardar').attr("disabled", true);
-        
+
         accion = lstAcciones.Modificar;
         var row = dtfamily.row(".selected");
         if (row.length > 0) {
@@ -257,67 +256,83 @@ $(document).ready(function() {
 
     /*Inicio de Guardar*/
     btnGuardar.on("click", function(e) {
-        if (Validar()) {
-            var Family = family.val().toUpperCase().trim();
-            if (accion == lstAcciones.Nuevo) {
-                var starCountRef = firebase.database().ref("Family/" + Family);
-                starCountRef.once('value').then(
-                    function(snapshot) {
-                        if (snapshot.val() == null) {
-                            firebase.database().ref('Family/' + Family).set({
-                                Neighborhood: neighborhood.val(),
-                                Address: address.val(),
-                                Phone: phone.val(),
-                                Email: email.val(),
-                                Latitud: latitud.val(),
-                                Longitud: longitud.val(),
-                            });
-                            $('#md-insertar').modal('hide');
-                            swal({
-                                title: "Success!",
-                                text: "Family saved correctly",
-                                type: "success",
-                                showCancelButton: true,
-                                confirmButtonColor: "#ff1803",
-                                confirmButtonText: "Close",
-                                closeOnConfirm: false
-                            });
-                        } else {
-                            swal({
-                                title: "Warning",
-                                text: "Family already exists",
-                                type: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#ff1803",
-                                confirmButtonText: "Yes",
-                                closeOnConfirm: false
-                            });
 
+        var longitudnum = parseInt($('#longitud').val());
+
+        if (longitudnum <= -0) {
+            if (Validar()) {
+                var Family = family.val().toUpperCase().trim();
+                if (accion == lstAcciones.Nuevo) {
+                    var starCountRef = firebase.database().ref("Family/" + Family);
+                    starCountRef.once('value').then(
+                        function(snapshot) {
+                            if (snapshot.val() == null) {
+                                firebase.database().ref('Family/' + Family).set({
+                                    Neighborhood: neighborhood.val(),
+                                    Address: address.val(),
+                                    Phone: phone.val(),
+                                    Email: email.val(),
+                                    Latitud: latitud.val(),
+                                    Longitud: longitud.val(),
+                                });
+                                $('#md-insertar').modal('hide');
+                                swal({
+                                    title: "Success!",
+                                    text: "Family saved correctly",
+                                    type: "success",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#ff1803",
+                                    confirmButtonText: "Close",
+                                    closeOnConfirm: false
+                                });
+                            } else {
+                                swal({
+                                    title: "Warning",
+                                    text: "Family already exists",
+                                    type: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#ff1803",
+                                    confirmButtonText: "Yes",
+                                    closeOnConfirm: false
+                                });
+
+                            }
                         }
-                    }
-                );
+                    );
 
-            } else if (accion == lstAcciones.Modificar) {
-                firebase.database().ref('Family/' + Family).set({
-                    Latitud: latitud.val(),
-                    Neighborhood: neighborhood.val(),
-                    Address: address.val(),
-                    Phone: phone.val(),
-                    Email: email.val(),
-                    Longitud: longitud.val(),
-                    family: family.val()
-                });
-                $('#md-insertar').modal('hide');
-                swal({
-                    title: "Success!",
-                    text: "Family Modified correctly",
-                    type: "success",
-                    showCancelButton: true,
-                    confirmButtonColor: "#ff1803",
-                    confirmButtonText: "Close",
-                    closeOnConfirm: false
-                });
+                } else if (accion == lstAcciones.Modificar) {
+                    firebase.database().ref('Family/' + Family).set({
+                        Latitud: latitud.val(),
+                        Neighborhood: neighborhood.val(),
+                        Address: address.val(),
+                        Phone: phone.val(),
+                        Email: email.val(),
+                        Longitud: longitud.val(),
+                        family: family.val()
+                    });
+                    $('#md-insertar').modal('hide');
+                    swal({
+                        title: "Success!",
+                        text: "Family Modified correctly",
+                        type: "success",
+                        showCancelButton: true,
+                        confirmButtonColor: "#ff1803",
+                        confirmButtonText: "Close",
+                        closeOnConfirm: false
+                    });
+                }
             }
+        }else{
+                $('#longitud').val("");
+                swal({
+                        title: "Warning!",
+                        text: "The length field must start with -75",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#ff1803",
+                        confirmButtonText: "Close",
+                        closeOnConfirm: false
+                });
         }
 
     });
@@ -345,5 +360,4 @@ $(document).ready(function() {
     });
 
     admin.validarDesconectado();
-    admin.getPerfil(txtNombreUsuario);
 });

@@ -38,13 +38,14 @@ $(document).ready(function() {
             if (snapshot.val() != null) {
                 $.each(snapshot.val(), function(index, value) {
                     var row = dtfundation.row.add([index,
-                                                value.Project,
-                                                value.Neighborhood, 
-                                                value.Address, 
-                                                value.Phone, 
-                                                value.Email, 
-                                                value.Latitud, 
-                                                value.Longitud])
+                            value.Project,
+                            value.Neighborhood,
+                            value.Address,
+                            value.Phone,
+                            value.Email,
+                            value.Latitud,
+                            value.Longitud
+                        ])
                         .draw()
                         .node();
                 });
@@ -77,7 +78,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (project.val() === "Select_Project") {
+        } else if (project.val() === "Select_Project") {
             swal({
                 title: "Warning",
                 text: "Select Project",
@@ -88,7 +89,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (neighborhood.val() == "") {
+        } else if (neighborhood.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter name of the neighborhood",
@@ -99,7 +100,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (address.val() == "") {
+        } else if (address.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter the address",
@@ -110,7 +111,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (phone.val() == "") {
+        } else if (phone.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter the phone number",
@@ -121,7 +122,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (email.val() == "") {
+        } else if (email.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter the email",
@@ -132,7 +133,7 @@ $(document).ready(function() {
                 closeOnConfirm: false
             });
             return false;
-        }else if (latitud.val() == "") {
+        } else if (latitud.val() == "") {
             swal({
                 title: "Warning",
                 text: "Enter the latitude",
@@ -169,15 +170,15 @@ $(document).ready(function() {
         $('#md-insertar').modal('show');
 
         var starCountRef = firebase.database().ref("Project");
-          starCountRef.on("value",
+        starCountRef.on("value",
             function(snapshot) {
                 $('#project >option').remove();
                 $('#project').append('<option value="Select_Project">Select Project</option>');
                 $.each(snapshot.val(), function(index, value) {
-                        $('#project').append($('<option>', { 
-                          value: index,
-                          text : index 
-                        }));
+                    $('#project').append($('<option>', {
+                        value: index,
+                        text: index
+                    }));
                 });
             }
         );
@@ -277,69 +278,85 @@ $(document).ready(function() {
 
     /*guardar*/
     btnGuardar.on("click", function(e) {
-        if (Validar()) {
-            var Fundation = fundation.val().toUpperCase().trim();
-            if (accion == lstAcciones.Nuevo) {
-                var starCountRef = firebase.database().ref("Fundation/" + Fundation);
-                starCountRef.once('value').then(
-                    function(snapshot) {
-                        if (snapshot.val() == null) {
-                            firebase.database().ref('Fundation/' + Fundation).set({
-                                Project: project.val(),
-                                Neighborhood: neighborhood.val(),
-                                Address: address.val(),
-                                Phone: phone.val(),
-                                Email: email.val(),
-                                Latitud: latitud.val(),
-                                Longitud: longitud.val(),
-                            });
-                            $('#md-insertar').modal('hide');
-                            swal({
-                                title: "Success!",
-                                text: "Fundation saved correctly",
-                                type: "success",
-                                showCancelButton: true,
-                                confirmButtonColor: "#ff1803",
-                                confirmButtonText: "Close",
-                                closeOnConfirm: false
-                            });
-                        } else {
-                            swal({
-                                title: "Warning",
-                                text: "Fundation already exists",
-                                type: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#ff1803",
-                                confirmButtonText: "Yes",
-                                closeOnConfirm: false
-                            });
 
+        var longitudnum = parseInt($('#longitud').val());
+
+        if (longitudnum <= -0) {
+            if (Validar()) {
+                var Fundation = fundation.val().toUpperCase().trim();
+                if (accion == lstAcciones.Nuevo) {
+                    var starCountRef = firebase.database().ref("Fundation/" + Fundation);
+                    starCountRef.once('value').then(
+                        function(snapshot) {
+                            if (snapshot.val() == null) {
+                                firebase.database().ref('Fundation/' + Fundation).set({
+                                    Project: project.val(),
+                                    Neighborhood: neighborhood.val(),
+                                    Address: address.val(),
+                                    Phone: phone.val(),
+                                    Email: email.val(),
+                                    Latitud: latitud.val(),
+                                    Longitud: longitud.val(),
+                                });
+                                $('#md-insertar').modal('hide');
+                                swal({
+                                    title: "Success!",
+                                    text: "Fundation saved correctly",
+                                    type: "success",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#ff1803",
+                                    confirmButtonText: "Close",
+                                    closeOnConfirm: false
+                                });
+                            } else {
+                                swal({
+                                    title: "Warning",
+                                    text: "Fundation already exists",
+                                    type: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#ff1803",
+                                    confirmButtonText: "Yes",
+                                    closeOnConfirm: false
+                                });
+
+                            }
                         }
-                    }
-                );
+                    );
 
-            } else if (accion == lstAcciones.Modificar) {
-                firebase.database().ref('Fundation/' + Fundation).set({
-                    fundation: fundation.val(),
-                    Project: project.val(),
-                    Neighborhood: neighborhood.val(),
-                    Address: address.val(),
-                    Phone: phone.val(),
-                    Email: email.val(),
-                    Latitud: latitud.val(),
-                    Longitud: longitud.val()
-                });
-                $('#md-insertar').modal('hide');
-                swal({
-                    title: "Success!",
-                    text: "Fundation Modified correctly",
-                    type: "success",
-                    showCancelButton: true,
-                    confirmButtonColor: "#ff1803",
-                    confirmButtonText: "Close",
-                    closeOnConfirm: false
-                });
+                } else if (accion == lstAcciones.Modificar) {
+                    firebase.database().ref('Fundation/' + Fundation).set({
+                        fundation: fundation.val(),
+                        Project: project.val(),
+                        Neighborhood: neighborhood.val(),
+                        Address: address.val(),
+                        Phone: phone.val(),
+                        Email: email.val(),
+                        Latitud: latitud.val(),
+                        Longitud: longitud.val()
+                    });
+                    $('#md-insertar').modal('hide');
+                    swal({
+                        title: "Success!",
+                        text: "Fundation Modified correctly",
+                        type: "success",
+                        showCancelButton: true,
+                        confirmButtonColor: "#ff1803",
+                        confirmButtonText: "Close",
+                        closeOnConfirm: false
+                    });
+                }
             }
+        } else {
+            $('#longitud').val("");
+            swal({
+                title: "Warning!",
+                text: "The length field must start with -75",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#ff1803",
+                confirmButtonText: "Close",
+                closeOnConfirm: false
+            });
         }
 
     });
